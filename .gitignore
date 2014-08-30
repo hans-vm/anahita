@@ -1,0 +1,16 @@
+S generated files #
+######################
+.*
+!.gitignore
+!.openshift
+anahita
+www/*
+config/development.yaml
+vendor/*
+!vendor/anahita/
+vendor/anahita/*
+!vendor/anahita/anahita/
+vendor/anahita/anahita/*
+!vendor/anahita/anahita/packages/
+vendor/anahita/anahita/packages/*
+!vendor/anahita/anahita/packages/Todos/
