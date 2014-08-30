@@ -1,0 +1,181 @@
+//Anahita ENTITIES
+.author-name,
+.editor-name
+{
+   font-size: @baseFontSize; 	
+   line-height: @baseLineHeight;
+}
+
+.entity-portrait-square
+{        
+    float: left;
+    margin: 10px;
+}
+
+.entity-title,
+.entity-name
+{
+   line-height: @baseLineHeight;
+   margin: 10px;
+   word-wrap: break-word;
+}
+
+h1.entity-title,
+h1.entity-name
+{
+    font-size: @baseFontSize + 5;
+}
+
+h2.entity-title,
+h2.entity-name
+{ 
+    font-size: @baseFontSize + 4;
+}
+
+h3.entity-title,
+h3.entity-name
+{ 
+    font-size: @baseFontSize + 3;
+}
+
+h4.entity-title,
+h4.entity-name,
+{ 
+    font-size: @baseFontSize + 2;
+}
+
+.entity-description,
+.entity-body
+{
+    word-wrap: break-word;
+    margin: 10px;
+    
+    code 
+    { 
+        padding: 10px; 
+    }
+    
+    h1 { font-size: @baseFontSize + 7 }
+    h2 { font-size: @baseFontSize + 3 }
+    h3 { font-size: @baseFontSize + 2 }
+    h4 { font-size: @baseFontSize + 1 }
+}
+
+.entity-excerpt
+{
+    margin: 10px;	
+}
+
+.entity-meta
+{ 
+    .an-meta;
+    margin: 10px;
+}
+
+.entity-actions
+{
+    margin: 10px;    
+}
+
+.entity-container
+{
+   padding-left: 60px;
+}
+
+.an-entity
+{
+    .clearfix;
+    margin: 20px 0;
+    .border-radius(@baseBorderRadius);
+    
+    &.an-entity-select-option
+    {
+        cursor: pointer;
+        
+        &:hover
+        {
+            .an-highlight;
+        }
+    }
+    
+    .entity-portrait-square
+	{        	        
+	    img
+	    {           
+	        .square(50px);
+	        .border-radius(3px);
+	    }
+	}
+    
+    .entity-portrait-medium
+     {   
+         margin: 10px;
+     }
+	
+	dl
+    {   
+        .clearfix;
+        font-size: @baseFontSize;
+            
+        dt
+        {
+            float: left;
+        }
+        dd
+        {
+            padding-left: 120px;
+        }
+    }
+    
+    ul.inline
+    {
+        li:first-child
+        {
+            padding-left: 0;
+        }
+    }
+    
+    i.pull-right
+    {
+        margin-right: 10px;
+    }
+}
+
+.an-entities
+{
+	.an-entity
+	{
+	   
+	   &:first-child
+	    {
+	       border-top: 0;
+	    }
+	    
+	    &:last-child
+	    {
+	       border-bottom: 0;
+	    }
+    }
+	
+	
+	.media-grid
+    {
+       img.thumbnail
+       {
+          .square(98px);
+       }
+    }
+    
+    &.masonry
+    {
+        .entity-portrait-medium
+        {            
+            margin: 0;
+            
+            img
+            {
+                .border-radius(0);
+            }
+        }
+    }
+}
