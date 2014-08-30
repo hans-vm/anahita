@@ -2,7 +2,7 @@
 
 <?php $todo = @service('repos:todos.todo')->getEntity()->reset() ?>
 
-<form id="todo-form" data-behavior="FormValidator ComposerForm" method="post" action="<?=@route($todo->getURL().'&oid='.$actor->id)?>">
+<form id="todo-form" data-behavior="FormValidator ComposerForm" method="post" action="<?=@route($todo->getURL().'&oid='.$actor->id)?>" enctype="multipart/form-data">
 	<fieldset>
 		<legend><?=@text('COM-TODOS-TODO-ADD')?></legend>
 			
@@ -26,6 +26,13 @@
 				<textarea data-validators="maxLength:5000" class="input-block-level" name="description" cols="50" rows="5" tabindex="2" tabindex="2"><?= @escape( $todo->description ) ?></textarea>
 			</div>
 		</div>
+
+		<div class="control-group">
+			<label class="control-label" for="portrait"><?= @text('COM-TODOS-PORTRAIT') ?></label>
+			<div class="controls">
+				<input type="file" name="portrait" id="portrait" class="input-block-level">
+			</div>
+		</div>
 		
 		<div class="control-group">
 			<label class="control-label" for="priority"><?= @text('COM-TODOS-TODO-PRIORITY') ?></label>
@@ -33,7 +40,7 @@
 				<?= @helper('prioritylist', $todo->priority)?>
 			</div>
 		</div>
-		
+	
 		<div class="control-group">
 			<label class="control-label" id="privacy" ><?= @text('LIB-AN-PRIVACY-FORM-LABEL') ?></label>
 			<div class="controls">

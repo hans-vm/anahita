@@ -34,6 +34,13 @@
     		<?= $object->title ?>
     	</a>
     </h4>
+    <?php if ($object->mimetype): ?>
+    <div class="entity-portrait-medium">
+        <a title="<?= $object->title ?>" href="<?= @route($object->getURL()); ?>">
+            <img src="<?= $object->getPortraitURL('medium') ?>" />
+        </a>
+    </div>
+    <?php endif; ?>
     <div class="entity-body">
 	    <?= @helper('text.truncate', @content(strip_tags($object->body), array('exclude'=>'syntax')), array('length'=>200, 'consider_html'=>true, 'read_more'=>true)); ?>
 	</div>	

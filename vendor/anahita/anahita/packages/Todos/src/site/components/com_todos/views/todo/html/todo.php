@@ -16,7 +16,13 @@
 	</div>
 	
 	<h3 class="entity-title"><?= @escape($todo->title) ?></h3>
-		
+	
+	<?php if ($todo->mimetype): ?>
+	<div class="entity-portrait-medium">
+		<img alt="<?= @escape($todo->title) ?>" src="<?= $todo->getPortraitURL('medium') ?>" />
+	</div>
+    <?php endif; ?>
+
 	<?php if($todo->description): ?>
 	<div class="entity-description"><?= @content( $todo->description ) ?></div>
 	<?php endif; ?>

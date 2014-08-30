@@ -99,4 +99,88 @@ class ComTodosControllerTodo extends ComMediumControllerDefault
 			
 		return $todos;
 	}
+
+    protected function _actionAdd($context)
+    {       
+        $data           = $context->data;
+        $file           = KRequest::get('files.portrait', 'raw');
+        $content        = @file_get_contents($file['tmp_name']);
+        $filesize       = strlen($content);
+        $uploadlimit    =  2 * 1024 * 1024;
+
+        $exif = (function_exists('exif_read_data')) ? @exif_read_data($file['tmp_name']) : array();
+
+        if ($filesize == 0) {
+            throw new LibBaseControllerExceptionBadRequest('File is missing');
+        }
+
+        if ($filesize > $uploadlimit) {
+            throw new LibBaseControllerExceptionBadRequest('Exceed maximum size');
+        }
+
+        $orientation = 0;
+
+        if (!empty($exif) && isset($exif['Orientation'])) {
+            $orientation = $exif['Orientation'];
+        }
+
+        $data['portrait']  = array(
+            'data' => $content,
+            'rotation' => $orientation,
+            'mimetype' => isset($file['type']) ? $file['type'] : null
+        );
+        $todo = $this->actor->todos->addNew($data);
+        $todo->setExifData($exif);
+        $todo->save();
+        $this->setItem($todo);
+        $this->getResponse()->status = KHttpResponse::CREATED;
+        if ($todo->body && preg_match('/\S/',$todo->body)) {
+            $context->append(array(
+                'story' => array(
+                    'body' => $todo->body
+                )
+            ));
+        }
+
+        return $todo;
+    }
+
+    protected function _actionEdit($context)
+    {
+        $data = $context->data;
+        $todo = parent::_actionEdit($context);
+
+        $file           = KRequest::get('files.portrait', 'raw');
+        $content        = @file_get_contents($file['tmp_name']);
+        $filesize       = strlen($content);
+        $uploadlimit    =  2 * 1024 * 1024; 
+
+        $exif = (function_exists('exif_read_data')) ? @exif_read_data($file['tmp_name']) : array();
+
+        if ($filesize == 0) {
+            throw new LibBaseControllerExceptionBadRequest('File is missing');
+        }
+        
+        if ($filesize > $uploadlimit) {
+            throw new LibBaseControllerExceptionBadRequest('Exceed maximum size');
+        }
+
+        $orientation = 0;
+
+        if (!empty($exif) && isset($exif['Orientation'])) {
+            $orientation = $exif['Orientation'];
+        }
+
+        $data['portrait']  = array(
+            'data' => $content,
+            'rotation' => $orientation,
+            'mimetype' => isset($file['type']) ? $file['type'] : null
+        );
+        $todo->setPortrait($data['portrait']);
+        $todo->save();
+
+        $this->getResponse()->status = KHttpResponse::RESET_CONTENT;
+
+        return $todo;
+    }
 }

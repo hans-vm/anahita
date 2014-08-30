@@ -21,7 +21,11 @@
 	<h3 class="entity-title">
 		<a href="<?= @route($todo->getURL()) ?>"><?= @escape($todo->title) ?></a>
 	</h3>
-	
+	<?php if ($todo->mimetype): ?>
+	<div class="entity-portrait-medium">
+		<a href="<?= @route($todo->getURL()) ?>"><img alt="<?= @escape($todo->title) ?>" src="<?= $todo->getPortraitURL('medium') ?>" /></a>
+	</div>
+    <?php endif; ?>
 	<?php if($todo->description): ?>
 	<div class="entity-description">
 		<?= @helper('text.truncate', @content($todo->description), array('length'=>500, 'consider_html'=>true, 'read_more'=>true)); ?>

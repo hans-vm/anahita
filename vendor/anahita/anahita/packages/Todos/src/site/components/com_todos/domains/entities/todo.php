@@ -64,14 +64,16 @@ class ComTodosDomainEntityTodo extends ComMediumDomainEntityMedium
 			'attributes' => array(
 				'name'					=> array('required'=>true),
 				'openStatusChangeTime' 	=> array('column'=>'open_status_change_time','default'=>'date', 'type'=>'date', 'write'=>'private'),
-				'priority'				=> array('column'=>'ordering',  'default'=>self::PRIORITY_NORMAL, 'type'=>'integer')
+				'priority'				=> array('column'=>'ordering',  'default'=>self::PRIORITY_NORMAL, 'type'=>'integer'),
+				'mimetype'
 				),
 			'relationships' => array(
 				'lastChanger' => array('parent'=>'com:people.domain.entity.person', 'child_column'=>'open_status_change_by'),
 				),
 			'behaviors' => array(
 				'parentable' => array('parent'=>'todolist'),
-				'enableable'
+				'enableable',
+				'portraitable'
 			),
 			'aliases' => array(
 				'open'		=> 'enabled'		
@@ -79,6 +81,17 @@ class ComTodosDomainEntityTodo extends ComMediumDomainEntityMedium
 		));
 			
 		parent::_initialize($config);		
+	}
+
+	public function getExifData()
+	{
+		return $this->getValue('exif_data', array());
+	}
+
+	public function setExifData($data = array())
+	{
+		$this->setValue('exif_data', $data);
+		return $this;
 	}
 	
 	/**
